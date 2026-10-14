@@ -1,0 +1,32 @@
+{
+  "name": "doodledraw_frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/InzmamKhan/DoodleDraw_Frontend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/InzmamKhan/DoodleDraw_Frontend/issues"
+  },
+  "homepage": "https://github.com/InzmamKhan/DoodleDraw_Frontend#readme",
+  "dependencies": {
+    "lucide-react": "^1.57.0",
+    "react-router-dom": "^7.18.4",
+    "socket.io-client": "^4.8.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.1.2",
+    "autoprefixer": "^10.6.1",
+    "postcss": "^8.5.30",
+    "tailwindcss": "^4.3.3",
+    "vite": "^8.3.4"
+  }
+}
