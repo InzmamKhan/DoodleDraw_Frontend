@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAuth } from '../context/AuthContext';
-import NeumorphicButton from '../components/common/NeumorphicButton';
+import NeumorphicButton from '../assets/components/common/NeumorphicButton';
 import { useNavigate } from 'react-router-dom';
 
 const AccountPage = () => {

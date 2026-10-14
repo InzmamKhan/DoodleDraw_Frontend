@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import NeumorphicInput from '../components/common/NeumorphicInput';
-import NeumorphicButton from '../components/common/NeumorphicButton';
-import CreateRoomModal from '../components/modals/CreateRoomModal';
-import SettingsDropdown from '../components/layout/SettingsDropdown';
+import NeumorphicInput from '../assets/components/common/NeumorphicInput';
+import NeumorphicButton from '../assets/components/common/NeumorphicButton';
+import CreateRoomModal from '../assets/components/modals/CreateRoomModal';
+import SettingsDropdown from '../assets/components/layout/SettingsDropdown';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 

@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
-import TopHeaderBar from '../components/canvas/TopHeaderBar';
-import CanvasBoard from '../components/canvas/CanvasBoard';
-import CanvasToolbar from '../components/canvas/CanvasToolbar';
-import ChatDrawer from '../components/chat/ChatDrawer';
+import TopHeaderBar from '../assets/components/canvas/TopHeaderBar';
+import CanvasBoard from '../assets/components/canvas/CanvasBoard';
+import CanvasToolbar from '../assets/components/canvas/CanvasToolbar';
+import ChatDrawer from '../assets/components/chat/ChatDrawer';
 import { useSocketContext } from '../context/SocketContext';
 import { useAuth } from '../context/AuthContext';
 import { useCanvas } from '../hooks/useCanvas';
