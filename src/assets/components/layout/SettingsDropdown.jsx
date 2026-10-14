@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import NeumorphicButton from '../common/NeumorphicButton';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../../context/AuthContext';
 
 const SettingsDropdown = ({ onOpenAccount }) => {
   const [isOpen, setIsOpen] = useState(false);
