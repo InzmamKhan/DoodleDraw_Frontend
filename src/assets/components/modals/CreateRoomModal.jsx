@@ -20,17 +20,17 @@ const CreateRoomModal = ({ isOpen, onClose, onRoomCreated }) => {
     setLoading(true);
     setError('');
 
-    try {
-      const res = await fetch(`${API_URL}/api/room/create`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({
-          roomName,
-          autoGeneratePassword: passwordMode === 'auto',
-          customPassword: passwordMode === 'custom' ? customPassword : null,
-        }),
-      });
+    const res = await fetch(`${API_URL}/api/room/create`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({
+        name: roomName, // Sent as 'name' so backend req.body.name receives it
+        isPublic: passwordMode === 'none',
+        securityType: passwordMode,
+        password: passwordMode === 'custom' ? customPassword : null,
+      }),
+    });
 
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || 'Failed to create room');
