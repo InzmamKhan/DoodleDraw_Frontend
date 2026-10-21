@@ -20,17 +20,18 @@ const CreateRoomModal = ({ isOpen, onClose, onRoomCreated }) => {
     setLoading(true);
     setError('');
 
-    const res = await fetch(`${API_URL}/api/rooms/create`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
-      body: JSON.stringify({
-        name: roomName, 
-        isPublic: passwordMode === 'none',
-        securityType: passwordMode,
-        password: passwordMode === 'custom' ? customPassword : null,
-      }),
-    });
+    try {
+      const res = await fetch(`${API_URL}/api/rooms/create`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          name: roomName,
+          isPublic: passwordMode === 'none',
+          securityType: passwordMode,
+          password: passwordMode === 'custom' ? customPassword : null,
+        }),
+      });
 
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || 'Failed to create room');
@@ -69,6 +70,7 @@ const CreateRoomModal = ({ isOpen, onClose, onRoomCreated }) => {
                 active={passwordMode === 'none'}
                 onClick={() => setPasswordMode('none')}
                 className="flex-1 !text-xs py-1.5"
+                type="button"
               >
                 Public
               </NeumorphicButton>
@@ -76,6 +78,7 @@ const CreateRoomModal = ({ isOpen, onClose, onRoomCreated }) => {
                 active={passwordMode === 'auto'}
                 onClick={() => setPasswordMode('auto')}
                 className="flex-1 !text-xs py-1.5"
+                type="button"
               >
                 Auto Password
               </NeumorphicButton>
@@ -83,6 +86,7 @@ const CreateRoomModal = ({ isOpen, onClose, onRoomCreated }) => {
                 active={passwordMode === 'custom'}
                 onClick={() => setPasswordMode('custom')}
                 className="flex-1 !text-xs py-1.5"
+                type="button"
               >
                 Custom
               </NeumorphicButton>
@@ -100,7 +104,7 @@ const CreateRoomModal = ({ isOpen, onClose, onRoomCreated }) => {
           </div>
 
           <div className="flex gap-3 justify-end mt-2">
-            <NeumorphicButton onClick={onClose} className="text-gray-500">
+            <NeumorphicButton onClick={onClose} className="text-gray-500" type="button">
               Cancel
             </NeumorphicButton>
             <NeumorphicButton type="submit" disabled={loading} className="text-slate-900 font-semibold">
