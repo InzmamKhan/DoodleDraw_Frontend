@@ -41,19 +41,34 @@ const CanvasPage = () => {
   } = useCanvas(socket, roomCode);
 
   useEffect(() => {
-    fetch(`${API_URL}/api/room/${roomCode}`, { credentials: 'include' })
+    if (!roomCode) return;
+
+    fetch(`${API_URL}/api/rooms/${roomCode}`, { credentials: 'include' })
       .then((res) => res.json())
       .then((data) => {
-        if (data.room) setRoomDetails(data.room);
-        else navigate('/');
+        if (data.room) {
+          setRoomDetails(data.room);
+        } else {
+          console.error('Room details missing:', data.message);
+          navigate('/');
+        }
       })
-      .catch(() => navigate('/'));
+      .catch((err) => {
+        console.error('Failed to fetch room:', err);
+        navigate('/');
+      });
   }, [roomCode, navigate]);
 
   useEffect(() => {
     if (!socket || !user || !roomCode) return;
 
-    socket.emit('join_room', { roomCode, userId: user.id, username: user.username });
+    const currentUserId = user.id || user._id;
+
+    socket.emit('join_room', {
+      roomCode,
+      userId: currentUserId,
+      username: user.username,
+    });
 
     socket.on('user_joined', ({ users }) => setUsers(users));
     socket.on('user_left', ({ users }) => setUsers(users));
@@ -126,7 +141,7 @@ const CanvasPage = () => {
     <div className="h-screen w-screen flex flex-col bg-[#e0e5ec] overflow-hidden">
       <TopHeaderBar
         roomCode={roomCode}
-        roomName={roomDetails?.roomName}
+        roomName={roomDetails?.name}
         users={users}
         onLeave={handleLeaveRoom}
         toggleChat={() => setIsChatOpen(!isChatOpen)}
