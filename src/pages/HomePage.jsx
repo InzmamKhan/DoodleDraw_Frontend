@@ -40,11 +40,11 @@ const HomePage = () => {
 
     setError('');
     try {
-      const res = await fetch(`${API_URL}/api/room/verify`, {
+      const res = await fetch(`${API_URL}/api/rooms/join`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        body: JSON.stringify({ roomCode, password }),
+        body: JSON.stringify({ code: roomCode, password }),
       });
 
       const data = await res.json();
@@ -56,14 +56,19 @@ const HomePage = () => {
 
       if (!res.ok) throw new Error(data.message || 'Unable to join room');
 
-      navigate(`/canvas/${data.room.roomCode}`, { state: { password } });
+      navigate(`/canvas/${data.room.code}`, { state: { password } });
     } catch (err) {
       setError(err.message);
     }
   };
 
   const handleRoomCreated = (room) => {
-    navigate(`/canvas/${room.roomCode}`, { state: { password: room.plainPassword } });
+    const code = room?.code || room?.roomCode;
+    if (code) {
+      navigate(`/canvas/${code}`, { state: { password: room.autoPassword } });
+    } else {
+      setError('Room created, but failed to retrieve room code.');
+    }
   };
 
   if (!user) {
@@ -133,7 +138,10 @@ const HomePage = () => {
           <p className="text-xs text-gray-500 mb-6">Create a new canvas room or enter an existing room code.</p>
 
           <div className="flex flex-col gap-4">
-            <NeumorphicButton onClick={() => setIsModalOpen(true)} className="py-3 font-semibold text-gray-800">
+            <NeumorphicButton
+              onClick={() => setIsModalOpen(true)}
+              className="py-3 font-semibold text-gray-800"
+            >
               ➕ Create New Room
             </NeumorphicButton>
 
